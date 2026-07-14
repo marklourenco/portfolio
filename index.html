@@ -32,7 +32,6 @@
     min-height: 100vh;
   }
 
-  /* ---- Left column: name + collapsible nav ---- */
   .left {
     display: flex;
     flex-direction: column;
@@ -91,7 +90,6 @@
     transition: transform 0.3s ease;
   }
 
-  /* arrow points right by default (closed state) */
   .toggle-btn svg {
     transform: rotate(0deg);
   }
@@ -141,7 +139,6 @@
     font-weight: 600;
   }
 
-  /* ---- Main content ---- */
   .content {
     flex: 1;
     padding: 40px 40px 40px 8px;
@@ -637,7 +634,6 @@
     btn.addEventListener('click', () => showTab(btn.dataset.tab));
   });
 
-  // Projects sub-tabs
   const subTabItems = document.querySelectorAll('.sub-tab-item');
   const subPanels = document.querySelectorAll('.sub-tab-panel');
 
@@ -650,7 +646,6 @@
     btn.addEventListener('click', () => showSubTab(btn.dataset.subtab));
   });
 
-  // Sorting project cards within a grid
   function sortProjectGrid(gridEl, mode) {
     if (!gridEl) return;
     const cards = Array.from(gridEl.querySelectorAll('.project-card'));
@@ -664,10 +659,8 @@
         const aMatch = engineA === targetEngine;
         const bMatch = engineB === targetEngine;
         if (aMatch !== bMatch) return aMatch ? -1 : 1;
-        // tie-break by latest finished first
         return (b.dataset.end || '').localeCompare(a.dataset.end || '');
       }
-      // date mode: latest finished first
       return (b.dataset.end || '').localeCompare(a.dataset.end || '');
     });
 
@@ -681,7 +674,6 @@
     });
   });
 
-  // Default: sidebar open, Projects tab active, Main Projects sub-tab active
   layout.classList.add('open');
   showTab('projects');
   showSubTab('main-projects');
