@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark Jeremy Lourenco Rojas</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --accent: #111111;
+    --border: #e4e4e4;
+    --sidebar-width: 190px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 24px;
+    flex-shrink: 0;
+  }
+
+  .name {
+    line-height: 1.15;
+    margin-bottom: 28px;
+    white-space: nowrap;
+  }
+
+  .name .first-names {
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .name .last-names {
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .sidebar-wrap {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    color: var(--muted);
+    transition: color 0.15s ease;
+  }
+
+  .toggle-btn:hover {
+    color: var(--text);
+  }
+
+  .toggle-btn svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle-btn svg {
+    transform: rotate(0deg);
+  }
+
+  .layout.open .toggle-btn svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-column {
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 0.3s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+
+  .layout.open .nav-column {
+    max-width: var(--sidebar-width);
+    opacity: 1;
+  }
+
+  .nav-column nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 14px;
+    min-width: 140px;
+  }
+
+  .nav-column button.nav-item {
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    padding: 8px 4px;
+    margin: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .nav-column button.nav-item:hover {
+    color: var(--text);
+  }
+
+  .nav-column button.nav-item.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .content {
+    flex: 1;
+    padding: 40px 40px 40px 8px;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .tab-panel h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+
+  .placeholder {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .sub-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .sub-tab-item {
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: inherit;
+    padding: 4px 2px;
+  }
+
+  .sub-tab-item:hover {
+    color: var(--text);
+  }
+
+  .sub-tab-item.active {
+    color: var(--text);
+  }
+
+  .sub-tab-panel {
+    display: none;
+  }
+
+  .sub-tab-panel.active {
+    display: block;
+  }
+
+  .about-content {
+    max-width: 700px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .about-intro {
+    margin: 0 0 24px;
+  }
+
+  .about-content h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 28px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-content h2:first-of-type {
+    margin-top: 0;
+  }
+
+  .about-content p {
+    margin: 0 0 12px;
+  }
+
+  .about-content ul {
+    margin: 0 0 12px;
+    padding-left: 20px;
+  }
+
+  .about-content li {
+    margin-bottom: 6px;
+  }
+
+  .about-content a {
+    color: var(--text);
+    text-decoration: underline;
+  }
+
+  .about-content a:hover {
+    color: var(--muted);
+  }
+
+  .sort-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .sort-bar label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .sort-select {
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .project-image-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #ececec;
+    overflow: hidden;
+  }
+
+  .project-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .project-card-body {
+    padding: 14px 16px 18px;
+  }
+
+  .project-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+
+  .project-context {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 2px;
+  }
+
+  .project-dates {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .tag-engine { background: #4f7cff; }
+  .tag-genre  { background: #a259ff; }
+  .tag-role   { background: #2fb380; }
+  .tag-extra  { background: #ff9f43; }
+
+  .project-desc-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 0 0 4px;
+  }
+
+  .project-desc-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .project-link:hover {
+    color: var(--muted);
+  }
+
+  .resume-embed {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: 80vh;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="layout" id="layout">
+  <div class="left">
+    <div class="name">
+      <span class="first-names">Mark Jeremy</span>
+      <span class="last-names">Lourenco Rojas</span>
+    </div>
+
+    <div class="sidebar-wrap">
+      <div class="nav-column">
+        <nav>
+          <button class="nav-item" data-tab="about">About</button>
+          <button class="nav-item" data-tab="projects">Projects</button>
+          <button class="nav-item" data-tab="resume">Resume</button>
+        </nav>
+      </div>
+
+      <button class="toggle-btn" id="toggleBtn" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="tab-panel" id="about">
+      <h1>About</h1>
+      <div class="about-content">
+        <p class="about-intro">Hello! I'm Mark Jeremy Lourenco Rojas, a passionate student at <strong>LaSalle College Vancouver</strong>, currently pursuing a <strong>Bachelor of Science in Video Game Programming</strong>. I'm focused on gaining practical experience and expanding my skills in game development. I am actively looking for internship or junior opportunities where I can contribute to the industry, learn from professionals, and grow as a developer.</p>
+
+        <h2>About Me</h2>
+        <ul>
+          <li><strong>Bachelor of Science in Video Game Programming</strong> at LaSalle College Vancouver</li>
+          <li>Currently sharpening my skills in programming languages like C++, C#, and Python</li>
+          <li>Deep interest in both game design and development, with a focus on <strong>game mechanics</strong> and <strong>gameplay programming</strong></li>
+          <li>Always eager to learn new tools, techniques, and approaches in the ever-evolving gaming industry</li>
+          <li>A problem solver who loves tackling challenges with creativity and logic</li>
+        </ul>
+
+        <h2>Education</h2>
+        <ul>
+          <li><strong>LaSalle College Vancouver</strong> — Bachelor's Degree in Computer Games and Programming Skills (10.2023 / 10.2026)</li>
+          <li><strong>Centre for Digital Media</strong> — CDM Practicum Program (05.2026 / 08.2026)</li>
+          <li><strong>Vancouver Institute of Media Arts</strong> — Diploma in Game Art &amp; Design (03.2022 / 03.2023)</li>
+        </ul>
+
+        <h2>Skills &amp; Technologies</h2>
+        <ul>
+          <li><strong>Proficient in:</strong> Unreal Engine, Unity, Maya 3D, Substance Painter &amp; Designer, Visual Studio, Adobe Photoshop, Git/GitHub, Perforce</li>
+          <li><strong>Familiar with:</strong> ZBrush, Marvelous Designer, Android Studio, Houdini</li>
+          <li><strong>Programming:</strong> C, C++, C#, Python, Unreal Blueprints, Data Structures &amp; Algorithms, OOP, ECS, Debugging</li>
+          <li><strong>Gameplay &amp; Systems:</strong> Gameplay Mechanics, AI Programming, Game Sense &amp; Design, Quick Prototyping</li>
+          <li><strong>Audio &amp; Networking:</strong> Audio Programming &amp; Sound Design, Multiplayer/Networked Gameplay</li>
+          <li><strong>Art &amp; VFX:</strong> 3D Modeling, Hard-Surface Modeling &amp; Modularization, Basic Rigging &amp; Animation, Texturing, Unreal Niagara &amp; Cascade VFX, Unity VFX</li>
+          <li><strong>Design &amp; UI/UX:</strong> UI/UX Implementation, Physics Simulation</li>
+          <li><strong>Collaboration:</strong> Effective communication with artists and programmers</li>
+          <li><strong>Languages:</strong> English – Fluent, Spanish – Fluent</li>
+        </ul>
+
+        <h2>Work Experience</h2>
+        <ul>
+          <li><strong>Unreal Engine Blueprint Instructor</strong> (12.2025) — Taught Unreal Engine Blueprint classes, teaching new students about <strong>interaction systems</strong>, several <strong>platforming mechanics</strong> (moving platforms, character movement), <strong>animation</strong>, and <strong>level design</strong> while also helping them learn the <strong>Unreal User Interface</strong>.</li>
+        </ul>
+
+        <h2>What I'm Looking For</h2>
+        <p>I'm actively seeking internship or junior opportunities in the video game industry to further develop my skills and contribute to projects that excite me. Whether it's a development role, a design position, or a technical challenge, I'm ready to bring my energy, dedication, and passion for games to the team.</p>
+
+        <h2>How to Reach Me</h2>
+        <p>Feel free to get in touch with me for any internship opportunities, collaborations, or questions. You can reach me at:</p>
+        <ul>
+          <li>Email: <a href="mailto:markjlourencor@gmail.com">markjlourencor@gmail.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/mark-lourenco-0482b3267/" target="_blank" rel="noopener">https://www.linkedin.com/in/mark-lourenco-0482b3267/</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="projects">
+      <h1>Projects</h1>
+
+      <div class="sub-tabs">
+        <button class="sub-tab-item" data-subtab="main-projects">Main Projects</button>
+        <button class="sub-tab-item" data-subtab="side-projects">Side Projects</button>
+      </div>
+
+      <div class="sub-tab-panel" id="main-projects">
+        <div class="sort-bar">
+          <label for="main-sort">Sort by</label>
+          <select id="main-sort" class="sort-select">
+            <option value="date">Date</option>
+            <option value="unity">Unity</option>
+            <option value="unreal">Unreal Engine</option>
+          </select>
+        </div>
+        <div class="project-grid" id="main-project-grid">
+
+          <div class="project-card" data-end="2026-08" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/Magic.png" alt="Magic Trails" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Magic Trails</h3>
+              <p class="project-context">Educational AR Mobile Experience — Centre for Digital Media Practicum</p>
+              <p class="project-dates">05.2026 / 08.2026</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">AR</span>
+                <span class="tag tag-genre">Educational</span>
+                <span class="tag tag-genre">Mobile</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">Audio Direction/Programmer</span>
+                <span class="tag tag-extra">Client Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Engineered <strong>AR gameplay mechanics — plane-anchored placement, hand-gesture recognition, and directional audio beacons</strong> — to ground missions in the player's real environment, and built guided UI flows (tooltips, progress indicators, completion overlays) so players never needed external tutorials. Built a <strong>Unity Audio Manager supporting layered adaptive music with sample-accurate stem toggling</strong>, spatialized 3D/2D SFX, and cross-scene persistence, and <strong>led all audio design direction</strong> for music, SFX, and dialogue. Collaborated with a multi-disciplinary team to deliver a <strong>full client demo</strong> translating their concept into a playable product.</p>
+              <a class="project-link" href="https://thecdm.ca/projects/child-centered-mobile-ar-experience-bumigumi-entertainment" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2026-03" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/thefool.png" alt="The Fool" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">The Fool</h3>
+              <p class="project-context">2D Deck-Building Roguelite Turn-Based RPG — LaSalle College Vancouver Production</p>
+              <p class="project-dates">09.2025 / 03.2026</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Deck-Building</span>
+                <span class="tag tag-genre">Roguelite</span>
+                <span class="tag tag-genre">Turn-Based RPG</span>
+                <span class="tag tag-role">Production Lead Programmer</span>
+                <span class="tag tag-role">Systems Designer</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">Gameplay Designer</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a scalable card system with unique icons, pricing, and active/passive effects, and <strong>designed a balanced card set enabling varied strategy</strong> across categories and scenarios. Developed a turn-order system driven by player and enemy speed stats to govern combat pacing, and constructed a <strong>scalable enemy system supporting unique skills and stats per enemy</strong> without duplicating code.</p>
+              <a class="project-link" href="https://morgantng.itch.io/the-fool" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2023-05" data-engine="Unreal Engine">
+            <div class="project-image-wrap">
+              <img src="photos/rute.png" alt="Rute: The Spirit Dish" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Rute: The Spirit Dish</h3>
+              <p class="project-context">3D Stealth-and-Puzzle Adventure — The Rookies</p>
+              <p class="project-dates">01.2023 / 05.2023</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unreal Engine</span>
+                <span class="tag tag-genre">Stealth</span>
+                <span class="tag tag-genre">Puzzle</span>
+                <span class="tag tag-genre">Adventure</span>
+                <span class="tag tag-role">Lead Programmer</span>
+                <span class="tag tag-role">Systems Designer</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">Gameplay Designer</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Contributed to game concept, puzzle design, and gameplay flow during pre-production, <strong>balancing scope against engineering constraints</strong> to keep the project shippable within a tight timeline. Shipped core <strong>Unreal Engine systems</strong> for a 3D stealth-and-puzzle adventure, including third-person movement and camera control, dialogue and puzzle logic, and <strong>stealth mechanics and enemy AI governing detection and reaction behavior</strong>.</p>
+              <a class="project-link" href="https://www.therookies.co/entries/22863" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2023-02" data-engine="Unreal Engine">
+            <div class="project-image-wrap">
+              <img src="photos/pawl.png" alt="Pawl's Impossible Journey" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Pawl's Impossible Journey</h3>
+              <p class="project-context">3D Platform Adventure Game — Vancouver Institute of Media Arts</p>
+              <p class="project-dates">12.2022 / 02.2023</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unreal Engine</span>
+                <span class="tag tag-genre">Platformer</span>
+                <span class="tag tag-genre">Adventure</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built rapid gameplay prototypes during pre-production to help the art team visualize mechanics and align environment scope. Developed <strong>player movement and platforming mechanics</strong> driving third-person traversal, and implemented checkpoint, collectible, obstacle, and level-transition systems structuring progression. Built enemy actors, a damage system, and a dialogue system, and supported the art team with VFX and procedural textures.</p>
+              <a class="project-link" href="https://cozytoadstudio.wixsite.com/pawl" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2026-02" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/masquerade.png" alt="Masquerade Murder Night" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Masquerade Murder Night</h3>
+              <p class="project-context">2D Side-Scroller Social-Deduction Party Game — Global Game Jam 2026</p>
+              <p class="project-dates">02.2026 / 02.2026</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Social Deduction</span>
+                <span class="tag tag-genre">Party Game</span>
+                <span class="tag tag-role">Gameplay Designer</span>
+                <span class="tag tag-role">Level Designer</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Game Jam</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Collaborated with designers to define the game's core concept, mechanics, gameflow, and level layout. Built <strong>core AI pathfinding for NPCs using a node system</strong> — with clumping, popular-area gathering, and unpredictable behavior — so NPCs behave like real party guests and stay hard to distinguish from real players. Implemented gameplay mechanics in a <strong>networked environment</strong> to keep behavior synced across machines, and integrated 2D sprite animations to give characters fluid, responsive movement.</p>
+              <a class="project-link" href="https://globalgamejam.org/games/2026/masquerade-murder-night-1" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-01" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/asphyxia.png" alt="Asphyxia" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Asphyxia</h3>
+              <p class="project-context">2D Resource-Management Choice-Based Game — Global Game Jam 2025</p>
+              <p class="project-dates">01.2025 / 01.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Resource-Management</span>
+                <span class="tag tag-genre">Choice-Based</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">Audio Programmer</span>
+                <span class="tag tag-extra">Game Jam</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Co-developed the game concept during pre-production, contributing to the <strong>moral-choice trading mechanic</strong> where players weigh profit against helping struggling visitors. Built the main menu, scene-transition flow, player interaction, and 2D movement mechanics, and developed a currency management system to track and adjust money. Integrated music and SFX to <strong>reinforce the emotional weight of each trade decision</strong>.</p>
+              <a class="project-link" href="https://globalgamejam.org/games/2025/breathe-0" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sub-tab-panel" id="side-projects">
+        <div class="sort-bar">
+          <label for="side-sort">Sort by</label>
+          <select id="side-sort" class="sort-select">
+            <option value="date">Date</option>
+            <option value="unity">Unity</option>
+            <option value="unreal">Unreal Engine</option>
+          </select>
+        </div>
+        <div class="project-grid" id="side-project-grid">
+
+          <div class="project-card" data-end="2025-12" data-engine="Python">
+            <div class="project-image-wrap">
+              <img src="photos/RPS.png" alt="Rock Paper Scissors AI Desktop App" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Rock Paper Scissors AI Desktop App</h3>
+              <p class="project-context">VGP 338 — LaSalle College Vancouver</p>
+              <p class="project-dates">12.2025 / 12.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Python</span>
+                <span class="tag tag-genre">Computer Vision</span>
+                <span class="tag tag-genre">Machine Learning</span>
+                <span class="tag tag-genre">Desktop App</span>
+                <span class="tag tag-role">AI/ML Developer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a desktop AI application that plays Rock Paper Scissors against a human using real-time webcam hand-gesture recognition. Trained a <strong>ResNet-34 CNN reaching 98.40% accuracy</strong> for gesture classification, and packaged the full pipeline into a <strong>standalone Windows .exe requiring no Python installation</strong>, running smoothly at ~30 FPS with no noticeable lag.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP-338-RPS-Model" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-08" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/PostApocallo.png" alt="Post Apocalloon" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Post Apocalloon</h3>
+              <p class="project-context">Mini Jame Gam #46</p>
+              <p class="project-dates">08.2025 / 08.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Arcade</span>
+                <span class="tag tag-genre">Infection</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Game Jam</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a fast-paced infection arcade game where you play as a virus balloon racing to infect clean balloons before time runs out. Implemented <strong>four stackable power-ups</strong> — Speed Boost, Virus Nuke, Virus Attack, and Time Freeze — along with <strong>chain-reaction infection spreading</strong> between nearby balloons for satisfying cascades, plus a local leaderboard to drive replayability. Shipped a full playable build with WASD movement in <strong>under 3 days</strong> for Mini Jame Gam #46.</p>
+              <a class="project-link" href="https://github.com/marklourenco/MiniJameGam46" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-06" data-engine="Kotlin">
+            <div class="project-image-wrap">
+              <img src="photos/Memory.png" alt="Fruit Match Game" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Fruit Match Game</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">06.2025 / 06.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Kotlin</span>
+                <span class="tag tag-genre">Memory Game</span>
+                <span class="tag tag-genre">Mobile</span>
+                <span class="tag tag-role">Android Developer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built an Android memory-matching game in Kotlin where players flip cards to match fruit pairs across <strong>4x4 or 6x6 grids</strong>. Implemented core game logic including a brief pair-reveal at the start, a strike system that ends the game at <strong>5 incorrect matches</strong>, and a timer with <strong>locally saved high scores per difficulty</strong>. Structured the app around dedicated activities for the main menu, gameplay, and card/state management, with replay options to return home or retry after a loss.</p>
+              <a class="project-link" href="https://github.com/marklourenco/MemoryGame" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-12" data-engine="C++">
+            <div class="project-image-wrap">
+              <img src="photos/SpaceShooter.png" alt="Kind Of Space Shooter" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Kind Of Space Shooter</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">12.2024 / 12.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C++</span>
+                <span class="tag tag-engine">raylib</span>
+                <span class="tag tag-genre">Arcade</span>
+                <span class="tag tag-genre">Space Shooter</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a 2D arcade space-shooter in <strong>C++ using the raylib library</strong>, where players pilot a ship to destroy incoming asteroids while protecting Earth's lives. Implemented core systems including asteroid spawning and collision, <strong>particle-based explosion effects</strong>, and a <strong>power-up system (Speed Boost, Multi-Shot, Screen Clear)</strong> to vary gameplay. Structured the project across dedicated classes for the player, asteroids, particles, and power-ups, with a full CMake build pipeline.</p>
+              <a class="project-link" href="https://github.com/marklourenco/KindOfSpaceShooter" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-07" data-engine="Unreal Engine">
+            <div class="project-image-wrap">
+              <img src="photos/WizardGame.png" alt="Wizard Game" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Wizard Game</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">07.2024 / 07.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unreal Engine</span>
+                <span class="tag tag-genre">3D Platformer</span>
+                <span class="tag tag-genre">Adventure</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">Level Designer</span>
+                <span class="tag tag-role">VFX Designer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a 3D wizard-themed platformer in <strong>Unreal Engine</strong> as part of a 3-person team over ~9 weeks, where players escape a magical castle by solving puzzles and recovering lost spells. Contributed <strong>gameplay programming, level design, VFX design, and animation implementation</strong>, including a spell system (Double Jump, Fireball, Teleport, Illuminate) and a variety of hazards, moving platforms, and destructible obstacles across the levels.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP114_3D_Wizard_Game" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-03" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/FruitBasket.png" alt="Fruit Basket" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Fruit Basket</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">03.2025 / 03.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Arcade</span>
+                <span class="tag tag-genre">Mobile</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a fast-paced Android arcade game in Unity where players catch falling fruits while dodging spikeballs. Implemented a <strong>global leaderboard</strong> for competitive scoring and integrated a <strong>rewarded-ad continue system</strong>, letting players watch an ad once per run to keep playing after a loss.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP236_Fruit_Basket" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-02" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/StealthDun.png" alt="Stealth Dungeon" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Stealth Dungeon</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">02.2025 / 02.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Stealth</span>
+                <span class="tag tag-genre">Isometric</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-role">AI Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a stealth-based Unity game with an isometric camera, focused on avoiding detection from patrolling enemies. Implemented multiple <strong>enemy AI behaviors</strong> — patrol, chase, random movement, and persistent chase — alongside <strong>dynamic lighting and shadows</strong> that let players use darkness and walls to break line of sight. Used Unity Asset Store art assets to keep the focus on AI and stealth mechanics rather than art production.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP236_Stealth_Dungeon" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-02" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/3DPlatformer.png" alt="3D Platformer" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">3D Platformer</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">02.2025 / 02.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">3D Platformer</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a Unity 3D platformer inspired by Fall Guys' movement style, where players cross a whimsical forest filled with dynamic hazards. Implemented <strong>physics-based obstacles</strong> — timed moving logs, spinning trees, and bouncing lily pads — paired with a <strong>movement system tuned for both precision and chaotic fun</strong>, creating an unpredictable, fast-paced platforming experience.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP236_3D_Platformer" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-01" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/DunEscape.png" alt="Dungeon Escape" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Dungeon Escape</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">01.2025 / 01.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">2D Platformer</span>
+                <span class="tag tag-genre">Co-op</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a 2D co-op platformer in Unity where two local players — a fast-but-low-jumping wolf and a slow-but-high-jumping rabbit — escape a dungeon together using <strong>split-screen local co-op</strong> and each character's distinct movement strengths. Designed platforming challenges around <strong>complementary character abilities</strong>, requiring players to coordinate and use the right character for each obstacle.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP236_2D_Dungeon_Escape" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2025-01" data-engine="Unity">
+            <div class="project-image-wrap">
+              <img src="photos/Pachinko.png" alt="Pachinko" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Pachinko</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">01.2025 / 01.2025</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">Unity</span>
+                <span class="tag tag-genre">Pachinko</span>
+                <span class="tag tag-genre">Arcade</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a space-themed Pachinko game in Unity where players launch aliens through a field of asteroids and comets to collect stars for points. Leveraged <strong>Unity's physics engine</strong> to drive realistic bounce mechanics off pegs and obstacles, paired with a real-time scoring UI to track star collection. Built as the first assignment for a Programming for Games course.</p>
+              <a class="project-link" href="https://github.com/marklourenco/VGP236_Pachinko" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-09" data-engine="C#">
+            <div class="project-image-wrap">
+              <img src="photos/EscapeGame.png" alt="Escape Game" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Escape Game</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">09.2024 / 09.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C#</span>
+                <span class="tag tag-genre">Text Adventure</span>
+                <span class="tag tag-genre">Console Game</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a console-based text adventure game in C# where players explore rooms, collect and use items, and solve puzzles to reach the final room. Implemented <strong>command parsing with regex</strong> for movement, inventory, and puzzle interactions, along with a <strong>save/load system</strong> that persists player location and inventory to file between sessions.</p>
+              <a class="project-link" href="https://github.com/marklourenco/escapegame" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-11" data-engine="C++">
+            <div class="project-image-wrap">
+              <img src="photos/Pong.png" alt="Pong" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Pong</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">11.2024 / 11.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C++</span>
+                <span class="tag tag-engine">raylib</span>
+                <span class="tag tag-genre">Arcade</span>
+                <span class="tag tag-genre">Classic</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a 2D Pong game in C++ using raylib, supporting both single-player and local multiplayer modes. Implemented a <strong>simple AI opponent</strong> for single-player mode alongside paddle-and-ball physics with edge/paddle bouncing, plus a full menu-driven game state system (Init, Single, Multi, Exit) and a first-to-3 scoring system.</p>
+              <a class="project-link" href="https://github.com/marklourenco/pong-game" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-08" data-engine="C#">
+            <div class="project-image-wrap">
+              <img src="photos/Hangman.png" alt="Hangman" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Hangman</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">08.2024 / 08.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C#</span>
+                <span class="tag tag-genre">Word Game</span>
+                <span class="tag tag-genre">Console Game</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a console-based Hangman game in C# with randomly selected words and <strong>difficulty-scaled guess limits</strong> based on word length. Implemented input validation to prevent repeated or invalid guesses, and real-time feedback showing the revealed word state, incorrect guesses, and remaining attempts after each turn.</p>
+              <a class="project-link" href="https://github.com/marklourenco/hangman" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-08" data-engine="C#">
+            <div class="project-image-wrap">
+              <img src="photos/AlienGame.png" alt="Space Explorer" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Space Explorer</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">08.2024 / 08.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C#</span>
+                <span class="tag tag-genre">Space Exploration</span>
+                <span class="tag tag-genre">Console Game</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a console-based space exploration game in C# where players navigate a 10x10 galaxy grid to reach Venus while managing <strong>fuel and cargo resources</strong>. Implemented an <strong>alien combat system</strong> with multiple enemy types (Martians, Zogarians, Space Pirates) that damage the ship's shields on encounter, alongside a class-based architecture (Spaceship, Alien, Resource, Galaxy) driving movement, resource collection, and win/lose conditions.</p>
+              <a class="project-link" href="https://github.com/marklourenco/aliengame" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-02" data-engine="C++">
+            <div class="project-image-wrap">
+              <img src="photos/DunCrawler.png" alt="Dungeon Crawler Game" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Dungeon Crawler Game</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">02.2024 / 02.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C++</span>
+                <span class="tag tag-genre">Dungeon Crawler</span>
+                <span class="tag tag-genre">Console Game</span>
+                <span class="tag tag-role">Gameplay Programmer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a console-based dungeon crawler in C++ where players navigate rooms in four directions, triggering <strong>randomized trap and item events</strong> that damage or heal the player as they search for the exit. Structured the game around a class-based architecture (Player, Room, GameEngine) managing health, room state, and navigation, with the goal of escaping before health reaches zero.</p>
+              <a class="project-link" href="https://github.com/marklourenco/DungeonCrawler" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+          <div class="project-card" data-end="2024-01" data-engine="C++">
+            <div class="project-image-wrap">
+              <img src="photos/Shopping.png" alt="Shopping System" />
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-title">Shopping System</h3>
+              <p class="project-context">LaSalle College Vancouver</p>
+              <p class="project-dates">01.2024 / 01.2024</p>
+              <div class="project-tags">
+                <span class="tag tag-engine">C++</span>
+                <span class="tag tag-genre">Simulation</span>
+                <span class="tag tag-genre">Console App</span>
+                <span class="tag tag-role">Software Developer</span>
+                <span class="tag tag-extra">Course Project</span>
+              </div>
+              <p class="project-desc-label">Description</p>
+              <p class="project-desc-text">Built a console-based shopping system simulation in C++ with separate customer and admin modes. Implemented a <strong>product catalog backed by a linked list</strong>, a shopping basket and checkout flow with change calculation, and a <strong>membership discount system</strong> granting registered members 10% off purchases.</p>
+              <a class="project-link" href="https://github.com/marklourenco/Shopping" target="_blank" rel="noopener">View More →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="resume">
+      <h1>Resume</h1>
+      <embed src="resume/resume.pdf" type="application/pdf" class="resume-embed" />
+    </div>
+  </div>
+</div>
+
+<script>
+  const layout = document.getElementById('layout');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const navItems = document.querySelectorAll('.nav-item');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  toggleBtn.addEventListener('click', () => {
+    layout.classList.toggle('open');
+  });
+
+  function showTab(tabName) {
+    panels.forEach(p => p.classList.toggle('active', p.id === tabName));
+    navItems.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName));
+  }
+
+  navItems.forEach(btn => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  });
+
+  const subTabItems = document.querySelectorAll('.sub-tab-item');
+  const subPanels = document.querySelectorAll('.sub-tab-panel');
+
+  function showSubTab(subTabName) {
+    subPanels.forEach(p => p.classList.toggle('active', p.id === subTabName));
+    subTabItems.forEach(btn => btn.classList.toggle('active', btn.dataset.subtab === subTabName));
+  }
+
+  subTabItems.forEach(btn => {
+    btn.addEventListener('click', () => showSubTab(btn.dataset.subtab));
+  });
+
+  function sortProjectGrid(gridEl, mode) {
+    if (!gridEl) return;
+    const cards = Array.from(gridEl.querySelectorAll('.project-card'));
+
+    const targetEngine = mode === 'unity' ? 'unity' : mode === 'unreal' ? 'unreal engine' : null;
+
+    cards.sort((a, b) => {
+      if (targetEngine) {
+        const engineA = (a.dataset.engine || '').toLowerCase();
+        const engineB = (b.dataset.engine || '').toLowerCase();
+        const aMatch = engineA === targetEngine;
+        const bMatch = engineB === targetEngine;
+        if (aMatch !== bMatch) return aMatch ? -1 : 1;
+        return (b.dataset.end || '').localeCompare(a.dataset.end || '');
+      }
+      return (b.dataset.end || '').localeCompare(a.dataset.end || '');
+    });
+
+    cards.forEach(card => gridEl.appendChild(card));
+  }
+
+  document.querySelectorAll('.sort-select').forEach(select => {
+    select.addEventListener('change', () => {
+      const gridEl = select.closest('.sub-tab-panel').querySelector('.project-grid');
+      sortProjectGrid(gridEl, select.value);
+    });
+  });
+
+  layout.classList.add('open');
+  showTab('projects');
+  showSubTab('main-projects');
+  sortProjectGrid(document.getElementById('main-project-grid'), 'date');
+  sortProjectGrid(document.getElementById('side-project-grid'), 'date');
+</script>
+
+</body>
+</html>
