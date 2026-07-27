@@ -82,7 +82,7 @@
   .header-links a {
     font-size: 13px;
     color: var(--muted);
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   .header-links a:hover {
@@ -356,7 +356,8 @@
     border: 1px solid rgba(240, 153, 125, 0.35);
     border-radius: 999px;
     padding: 4px 10px;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 100%;
   }
 
   .education-row {
@@ -394,7 +395,8 @@
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
-    object-fit: cover;
+    object-fit: contain;
+    background: #fff;
     border-radius: 8px;
     margin-bottom: 10px;
   }
