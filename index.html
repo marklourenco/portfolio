@@ -838,6 +838,27 @@
     color: var(--muted);
   }
 
+  .demo-reel-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    margin: 24px auto 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: 0 0 24px rgba(57, 255, 106, 0.15);
+  }
+
+  .demo-reel-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   .resume-embed {
     display: block;
     width: 100%;
@@ -1164,6 +1185,7 @@
     <p class="site-title">Software Developer - Gameplay Programmer</p>
     <nav class="main-nav">
       <button class="nav-item" data-tab="about">About Me</button>
+      <button class="nav-item" data-tab="demoreel">Demo Reel</button>
       <button class="nav-item" data-tab="projects">Projects</button>
       <button class="nav-item" data-tab="resume">Resume</button>
     </nav>
@@ -1290,6 +1312,12 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="demoreel">
+      <div class="demo-reel-wrap">
+        <iframe src="https://www.youtube.com/embed/QEaR5Sfge3o" title="Demo Reel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
 
